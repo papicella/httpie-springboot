@@ -20,13 +20,13 @@ public class EmployeeRest
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping("/emps")
+    @GetMapping(path="/emps")
     public List<Employee> allEmployees()
     {
         return employeeRepository.findAll();
     }
 
-    @GetMapping("/emps/{employeeId}")
+    @GetMapping(path="/emps/{employeeId}")
     public Employee findEmployee (@PathVariable Long employeeId)
     {
         Employee emp = employeeRepository.findOne(employeeId);
@@ -34,7 +34,7 @@ public class EmployeeRest
         return emp;
     }
 
-    @PostMapping("/emps")
+    @PostMapping(path="/emps")
     public ResponseEntity<Void> createEmployee(@RequestBody Employee employee)
     {
         Employee emp = employeeRepository.save(employee);
@@ -50,14 +50,14 @@ public class EmployeeRest
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/emps")
+    @PutMapping(path="/emps")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateEmployee(@RequestBody Employee employee)
     {
         employeeRepository.save(employee);
     }
 
-    @DeleteMapping("/emps/{employeeId}")
+    @DeleteMapping(path="/emps/{employeeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEmployee(@PathVariable Long employeeId)
     {
