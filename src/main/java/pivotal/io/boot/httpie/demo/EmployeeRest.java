@@ -36,6 +36,13 @@ public class EmployeeRest
         return employeeRepository.findAll();
     }
 
+    @ApiOperation(notes = "Find a employee", value = "Return a given employee using {employeeId}", nickname = "findEmployee")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = Employee.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     @GetMapping(path="/emps/{employeeId}")
     public Employee findEmployee (@PathVariable Long employeeId)
     {
@@ -44,6 +51,13 @@ public class EmployeeRest
         return emp;
     }
 
+    @ApiOperation(notes = "Create a new employee", value = "Create a new employee", nickname = "createEmployee")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Created", response = ResponseEntity.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     @PostMapping(path="/emps")
     public ResponseEntity<Void> createEmployee(@RequestBody Employee employee)
     {
@@ -60,6 +74,7 @@ public class EmployeeRest
         return ResponseEntity.created(location).build();
     }
 
+    @ApiOperation(notes = "Update an existing employee", value = "Update an existing employee", nickname = "updateEmployee")
     @PutMapping(path="/emps")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateEmployee(@RequestBody Employee employee)
@@ -67,6 +82,7 @@ public class EmployeeRest
         employeeRepository.save(employee);
     }
 
+    @ApiOperation(notes = "Delete an employee", value = "Delete an employee using {employeeId}", nickname = "deleteEmployee")
     @DeleteMapping(path="/emps/{employeeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteEmployee(@PathVariable Long employeeId)
