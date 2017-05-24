@@ -1,5 +1,8 @@
 package pivotal.io.boot.httpie.demo;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,13 @@ public class EmployeeRest
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @ApiOperation(notes = "Return all employees", value = "Return all employees", nickname = "allEmployees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = List.class),
+            @ApiResponse(code = 401, message = "Unauthorized"),
+            @ApiResponse(code = 403, message = "Forbidden"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Failure")})
     @GetMapping(path="/emps")
     public List<Employee> allEmployees()
     {
